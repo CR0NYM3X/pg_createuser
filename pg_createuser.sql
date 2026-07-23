@@ -37,7 +37,7 @@ DECLARE
     c_lowercase                     TEXT := 'abcdefghijklmnopqrstuvwxyz';
     c_uppercase                     TEXT := 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     c_digits                        TEXT := '0123456789';
-    c_specials                      TEXT := '!@#$%^&*()_+-=[]{}|;:,.>?';
+    c_specials                      TEXT := '!@#$%^&*()_+-=[]{}|;:,.<>?';
     c_all_chars                     TEXT;
 
     -- Variables de control interno
