@@ -19,6 +19,7 @@ DECLARE
     p_validate_custom_passwords     BOOLEAN := TRUE;            -- Validar reglas de políticas en claves manuales
     p_only_renew_validity           BOOLEAN := FALSE;           -- TRUE = SOLO renueva la vigencia (VALID UNTIL), NO toca la contraseña
     p_can_login                     BOOLEAN := TRUE;            -- TRUE = LOGIN, FALSE = NOLOGIN
+    p_show_password                 BOOLEAN := TRUE;            -- TRUE = Muestra la contraseña en el NOTICE, FALSE = Enmascara la clave
 
     -- ========================================================================
     -- 2. MATRIZ DE POLÍTICAS CREDCHECK
@@ -45,6 +46,7 @@ DECLARE
     v_curr_user                     TEXT;
     v_raw_pass                      TEXT;
     v_generated_pass                TEXT;
+    v_pass_display                  TEXT;
     v_expiration_date               TEXT;
     v_is_custom                     BOOLEAN;
     v_user_exists                   BOOLEAN;
@@ -194,6 +196,13 @@ BEGIN
                 END IF;
             END IF;
 
+            -- Determinación de la contraseña visible según el parámetro p_show_password
+            IF p_show_password THEN
+                v_pass_display := v_generated_pass;
+            ELSE
+                v_pass_display := '******** [OCULTA POR CONFIGURACIÓN]';
+            END IF;
+
             -- ----------------------------------------------------------------
             -- PASO D: AUDITORÍA DE EXISTENCIA DE USUARIO Y HASH EN CATÁLOGO
             -- ----------------------------------------------------------------
@@ -293,7 +302,7 @@ BEGIN
                     RAISE NOTICE 'USUARIO ACTUALIZADO EXITOSAMENTE';
                     RAISE NOTICE '================================================================';
                     RAISE NOTICE 'Usuario:              %', v_curr_user;
-                    RAISE NOTICE 'Contraseña Aplicada:  %', v_generated_pass;
+                    RAISE NOTICE 'Contraseña Aplicada:  %', v_pass_display;
                     RAISE NOTICE 'Tipo Contraseña:      %', CASE WHEN v_is_custom THEN 'MANUAL' ELSE 'GENERADA ALEATORIA' END;
                     RAISE NOTICE 'Estado Login:         %', v_login_clause;
                     RAISE NOTICE 'Encriptación Sesión:  %', p_password_encryption;
@@ -319,7 +328,7 @@ BEGIN
                     RAISE NOTICE 'USUARIO CREADO EXITOSAMENTE (CREDCHECK COMPLIANT)';
                     RAISE NOTICE '================================================================';
                     RAISE NOTICE 'Usuario:              %', v_curr_user;
-                    RAISE NOTICE 'Contraseña Aplicada:  %', v_generated_pass;
+                    RAISE NOTICE 'Contraseña Aplicada:  %', v_pass_display;
                     RAISE NOTICE 'Tipo Contraseña:      %', CASE WHEN v_is_custom THEN 'MANUAL' ELSE 'GENERADA ALEATORIA' END;
                     RAISE NOTICE 'Estado Login:         %', v_login_clause;
                     RAISE NOTICE 'Encriptación Sesión:  %', p_password_encryption;
@@ -333,7 +342,7 @@ BEGIN
                 -- CAPTURA DE ERROR INDIVIDUAL: Reporta la falla del usuario y continúa con los demás
                 RAISE NOTICE '================================================================';
                 RAISE NOTICE 'ERROR EN PROCESAMIENTO DE USUARIO "%": %', v_curr_user, SQLERRM;
-                RAISE NOTICE 'ACCION: Se omite a este usuario y se continua con el lote.';
+                RAISE NOTICE 'ACCION: Se omite a este usuario y se continua with el lote.';
                 RAISE NOTICE '================================================================';
         END;
 
