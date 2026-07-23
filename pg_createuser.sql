@@ -301,12 +301,12 @@ BEGIN
                     RAISE NOTICE '================================================================';
                     RAISE NOTICE 'USUARIO ACTUALIZADO EXITOSAMENTE';
                     RAISE NOTICE '================================================================';
-                    RAISE NOTICE 'Usuario:              %', v_curr_user;
-                    RAISE NOTICE 'Contraseña Aplicada:  %', v_pass_display;
-                    RAISE NOTICE 'Tipo Contraseña:      %', CASE WHEN v_is_custom THEN 'MANUAL' ELSE 'GENERADA ALEATORIA' END;
+                    RAISE NOTICE 'Usuario:              %', v_curr_user;                    
                     RAISE NOTICE 'Estado Login:         %', v_login_clause;
-                    RAISE NOTICE 'Encriptación Sesión:  %', p_password_encryption;
                     RAISE NOTICE 'Válido Hasta:         %', COALESCE(v_expiration_date, 'SIN EXPIRACIÓN');
+                    RAISE NOTICE 'Tipo Contraseña:      %', CASE WHEN v_is_custom THEN 'MANUAL' ELSE 'GENERADA ALEATORIA' END;
+                    RAISE NOTICE 'Encriptación Sesión:  %', p_password_encryption;
+                    RAISE NOTICE 'Contraseña Aplicada:  %', v_pass_display;
                     RAISE NOTICE '================================================================';
                 END IF;
             ELSE
@@ -327,12 +327,12 @@ BEGIN
                     RAISE NOTICE '================================================================';
                     RAISE NOTICE 'USUARIO CREADO EXITOSAMENTE (CREDCHECK COMPLIANT)';
                     RAISE NOTICE '================================================================';
-                    RAISE NOTICE 'Usuario:              %', v_curr_user;
-                    RAISE NOTICE 'Contraseña Aplicada:  %', v_pass_display;
-                    RAISE NOTICE 'Tipo Contraseña:      %', CASE WHEN v_is_custom THEN 'MANUAL' ELSE 'GENERADA ALEATORIA' END;
-                    RAISE NOTICE 'Estado Login:         %', v_login_clause;
-                    RAISE NOTICE 'Encriptación Sesión:  %', p_password_encryption;
+                    RAISE NOTICE 'Usuario:              %', v_curr_user;                    
+                    RAISE NOTICE 'Estado Login:         %', v_login_clause;                    
                     RAISE NOTICE 'Válido Hasta:         %', COALESCE(v_expiration_date, 'SIN EXPIRACIÓN');
+                    RAISE NOTICE 'Tipo Contraseña:      %', CASE WHEN v_is_custom THEN 'MANUAL' ELSE 'GENERADA ALEATORIA' END;
+                    RAISE NOTICE 'Encriptación Sesión:  %', p_password_encryption;
+                    RAISE NOTICE 'Contraseña Aplicada:  %', v_pass_display;
                     RAISE NOTICE '================================================================';
                 END IF;
             END IF;
