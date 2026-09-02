@@ -3,13 +3,13 @@ DECLARE
     -------------------------------------------------------------------------
     -- 1. CARRIL DE CREACIÓN: USUARIOS NUEVOS
     -------------------------------------------------------------------------
-    p_create_users          TEXT[]  := ARRAY['usr_app_backend', 'usr_analista_01']; -- Solo se crearan si NO existen en pg_roles
+    p_create_users          TEXT[]  := ARRAY['usr_app_backend', 'usr_analista_01']::text[]; -- Solo se crearan si NO existen en pg_roles
 
     -------------------------------------------------------------------------
     -- 2. CARRIL DE ROTACIÓN: USUARIOS EXISTENTES
     -------------------------------------------------------------------------
     p_rotate_existing       BOOLEAN := TRUE;                                -- TRUE = Activar rotacion; FALSE = Bloquear rotacion
-    p_rotate_users          TEXT[]  := ARRAY['usr_etl_batch'];              -- Solo se rotaran si existen y p_rotate_existing = TRUE
+    p_rotate_users          TEXT[]  := ARRAY['usr_etl_batch']::text[];              -- Solo se rotaran si existen y p_rotate_existing = TRUE
 
     -------------------------------------------------------------------------
     -- 3. PROPIEDADES DE ACCESO Y VIGENCIA (Aplica a Creación y Rotación)
